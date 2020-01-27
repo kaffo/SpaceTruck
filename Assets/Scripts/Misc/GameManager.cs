@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Settings")]
+    public float timeOfRun = 10f;
+
     [Header("References")]
     public Camera mainGameCamera;
     public GameObject partsShip;
@@ -99,7 +102,7 @@ public class GameManager : Singleton<GameManager>
         partsShip.SetActive(false);
 
         moveScript.distToMove = 0.01f;
-        StartCoroutine(StartTimedRun(5f));
+        StartCoroutine(StartTimedRun(timeOfRun));
         OnRunStart?.Invoke();
     }
 
