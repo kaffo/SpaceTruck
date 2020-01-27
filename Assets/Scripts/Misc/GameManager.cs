@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,18 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
             return;
+        }
+
+        ShopInstance partsShipShop = partsShip.GetComponent<ShopInstance>();
+        if (partsShipShop != null)
+        {
+            List<Tuple<int, Definitions.SHIPCOMPONENTS>> startingComponents = new List<Tuple<int, Definitions.SHIPCOMPONENTS>>
+            {
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER)
+            };
+            partsShipShop.SetShopSlots(startingComponents);
         }
     }
 
