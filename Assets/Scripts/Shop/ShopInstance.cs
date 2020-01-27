@@ -78,6 +78,12 @@ public class ShopInstance : MonoBehaviour
                     }   
                 }
 
+                SlotMouseController componentController = newComponentSlot.GetComponent<SlotMouseController>();
+                if (componentController != null)
+                {
+                    componentController.myShipComponent = componentsToSet[i + j].Item2;
+                }
+
                 if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.LASER)
                 {
                     GameObject newComponentForSale = Instantiate(laserPrefab, newComponentSlot.transform);

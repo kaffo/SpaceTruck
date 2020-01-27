@@ -27,6 +27,9 @@ public class EventManager : Singleton<EventManager>
         }
     }
 
+    public SlotMouseController componentInMouse = null;
+    public AttachPointEventHandler attachpointUnderMouse = null;
+
     public delegate void OnPlayerPickupComponentDelegate();
     public event OnPlayerPickupComponentDelegate OnPlayerPickupComponent;
 

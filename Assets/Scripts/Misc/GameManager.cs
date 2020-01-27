@@ -11,6 +11,12 @@ public class GameManager : Singleton<GameManager>
     public ShipMovement moveScript;
     public List<GameObject> gameObjectsToHide;
 
+    public delegate void OnRunStartDelegate();
+    public event OnRunStartDelegate OnRunStart;
+
+    public delegate void OnRunEndDelegate();
+    public event OnRunEndDelegate OnRunEnd;
+
     private enum CAMERAPOSITION
     {
         DEFAULT,
@@ -94,6 +100,7 @@ public class GameManager : Singleton<GameManager>
 
         moveScript.distToMove = 0.01f;
         StartCoroutine(StartTimedRun(5f));
+        OnRunStart?.Invoke();
     }
 
     private IEnumerator StartTimedRun(float lengthOfRun)
@@ -109,5 +116,6 @@ public class GameManager : Singleton<GameManager>
         partsShip.SetActive(true);
 
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP)); // TODO move this
+        OnRunEnd?.Invoke();
     }
 }

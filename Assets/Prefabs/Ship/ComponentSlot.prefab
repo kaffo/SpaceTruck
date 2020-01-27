@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2648346230554582269}
   - component: {fileID: 1334925605476078227}
   - component: {fileID: 3893177986856393747}
+  - component: {fileID: 8447580574499966266}
   m_Layer: 0
   m_Name: ComponentSlot
   m_TagString: Untagged
@@ -65,6 +66,10 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 94d84819500c2b84ebf7157fe4e857c6, type: 2}
   onHoverMaterial: {fileID: 2100000, guid: c065dcc378a489a4a816ef78b5888247, type: 2}
   myHoverModel: {fileID: 8032618588697962030}
+  myBaseModel: {fileID: 1550952401604009579}
+  laserPrefab: {fileID: 5586230796422584415, guid: 22214e8c6c3c9674e9348a8db08289d1,
+    type: 3}
+  baseHideScript: {fileID: 8447580574499966266}
 --- !u!65 &3893177986856393747
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -78,6 +83,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.95, y: 1, z: 0.95}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &8447580574499966266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240960996607939883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0eeb6dcb1d0f447960124affec1b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToToggle: {fileID: 1550952401604009579}
+  enableOnRunStart: 0
+  enableOnRunEnd: 1
 --- !u!1 &1550952401604009579
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8786797345088268697
 Transform:
   m_ObjectHideFlags: 0

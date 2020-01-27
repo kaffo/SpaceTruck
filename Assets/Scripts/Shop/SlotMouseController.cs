@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(PriceText))]
 public class SlotMouseController : MonoBehaviour
 {
+    [Header("Settings")]
+    public Definitions.SHIPCOMPONENTS myShipComponent;
+
     [Header("References")]
     public Material defaultMaterial;
     public Material onHoverMaterial;
@@ -33,7 +37,7 @@ public class SlotMouseController : MonoBehaviour
         myBaseRenderer.material = defaultMaterial;
     }
 
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
         myBaseRenderer.material = onHoverMaterial;
     }
@@ -52,6 +56,7 @@ public class SlotMouseController : MonoBehaviour
         }
 
         EventManager.Instance.PlayerHasComponent = true;
+        EventManager.Instance.componentInMouse = this;
         grabbed = true;
     }
 
@@ -63,6 +68,17 @@ public class SlotMouseController : MonoBehaviour
         }
 
         EventManager.Instance.PlayerHasComponent = false;
+        EventManager.Instance.componentInMouse = null;
         grabbed = false;
+
+        if (EventManager.Instance.attachpointUnderMouse)
+        {
+            // TODO money
+
+            gameObject.GetComponent<Collider>().enabled = false;
+            gameObject.GetComponent<PriceText>().ItemPriceString = "SOLD";
+            myBaseModel.SetActive(false);
+            EventManager.Instance.attachpointUnderMouse.InstallComponent(myShipComponent);
+        }
     }
 }

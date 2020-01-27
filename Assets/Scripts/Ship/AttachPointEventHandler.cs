@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AttachPoint))]
 public class AttachPointEventHandler : MonoBehaviour
 {
     [Header("References")]
     public Material defaultMaterial;
     public Material onHoverMaterial;
     public GameObject myHoverModel;
+    public GameObject myBaseModel;
+    public GameObject laserPrefab;
+    public ShowHideOnRun baseHideScript;
 
     private Renderer myHoverRenderer;
     private Collider myCollider;
 
     private void Start()
     {
-        if (defaultMaterial == null || onHoverMaterial == null || myHoverModel == null)
+        if (defaultMaterial == null || onHoverMaterial == null || myHoverModel == null || laserPrefab == null || baseHideScript == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -61,10 +65,34 @@ public class AttachPointEventHandler : MonoBehaviour
     void OnMouseEnter()
     {
         myHoverRenderer.material = onHoverMaterial;
+        EventManager.Instance.attachpointUnderMouse = this;
     }
 
     private void OnMouseExit()
     {
         myHoverRenderer.material = defaultMaterial;
+        EventManager.Instance.attachpointUnderMouse = null;
+    }
+
+    public void InstallComponent(Definitions.SHIPCOMPONENTS purchasedComponent)
+    {
+        EventManager.Instance.attachpointUnderMouse = null;
+        myCollider.enabled = false;
+        myBaseModel.SetActive(false);
+        myHoverModel.SetActive(false);
+        baseHideScript.enabled = false;
+
+        AttachPoint attachPointScript = gameObject.GetComponent<AttachPoint>();
+        switch (purchasedComponent)
+        {
+            case Definitions.SHIPCOMPONENTS.LASER:
+                GameObject component = Instantiate(laserPrefab);
+                attachPointScript.AttachComponent(component);
+                break;
+            default:
+            case Definitions.SHIPCOMPONENTS.NONE:
+                Debug.Log("Empty Tile");
+                break;
+        }
     }
 }
