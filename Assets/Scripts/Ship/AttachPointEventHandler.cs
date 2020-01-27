@@ -82,6 +82,9 @@ public class AttachPointEventHandler : MonoBehaviour
         myHoverModel.SetActive(false);
         baseHideScript.enabled = false;
 
+        EventManager.Instance.OnPlayerPickupComponent -= OnPlayerGrabComponent;
+        EventManager.Instance.OnPlayerDropComponent -= OnPlayerDropComponent;
+
         AttachPoint attachPointScript = gameObject.GetComponent<AttachPoint>();
         switch (purchasedComponent)
         {
