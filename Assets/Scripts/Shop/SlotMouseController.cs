@@ -11,6 +11,7 @@ public class SlotMouseController : MonoBehaviour
     public GameObject myBaseModel;
 
     private Renderer myBaseRenderer;
+    private bool grabbed = false;
 
     private void Start()
     {
@@ -40,5 +41,28 @@ public class SlotMouseController : MonoBehaviour
     private void OnMouseExit()
     {
         myBaseRenderer.material = defaultMaterial;
+    }
+
+    private void OnMouseDown()
+    {
+        if (EventManager.Instance.PlayerHasComponent)
+        {
+            Debug.LogWarning("Cannot hold two components at once");
+            return;
+        }
+
+        EventManager.Instance.PlayerHasComponent = true;
+        grabbed = true;
+    }
+
+    private void OnMouseUp()
+    {
+        if (!EventManager.Instance.PlayerHasComponent || !grabbed)
+        {
+            return;
+        }
+
+        EventManager.Instance.PlayerHasComponent = false;
+        grabbed = false;
     }
 }

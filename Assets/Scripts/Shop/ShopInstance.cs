@@ -69,7 +69,7 @@ public class ShopInstance : MonoBehaviour
 
                 if (componentPrice != null)
                 {
-                    if (componentsToSet[i + j].Item2 == 0)
+                    if (componentsToSet[i + j].Item1 == 0)
                     {
                         componentPrice.ItemPriceString = "FREE";
                     } else
