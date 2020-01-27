@@ -26,6 +26,8 @@ public class GameManager : Singleton<GameManager>
         PARTSHIP
     }
 
+    private Coroutine gameCoroutine;
+
     private void Start()
     {
         if (mainGameCamera == null || partsShip == null || moveScript == null || gameObjectsToHide == null)
@@ -102,7 +104,7 @@ public class GameManager : Singleton<GameManager>
         partsShip.SetActive(false);
 
         moveScript.distToMove = 0.01f;
-        StartCoroutine(StartTimedRun(timeOfRun));
+        gameCoroutine = StartCoroutine(StartTimedRun(timeOfRun));
         OnRunStart?.Invoke();
     }
 
@@ -119,6 +121,14 @@ public class GameManager : Singleton<GameManager>
         partsShip.SetActive(true);
 
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP)); // TODO move this
+        OnRunEnd?.Invoke();
+    }
+
+    public void GameOver()
+    {
+        StopCoroutine(gameCoroutine);
+        Debug.Log("Game Over - Ending Run");
+        moveScript.distToMove = 0.00f;
         OnRunEnd?.Invoke();
     }
 }

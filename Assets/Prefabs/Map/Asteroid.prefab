@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 114284486879639552}
   - component: {fileID: 114337794724815836}
   - component: {fileID: 8238330938568055956}
-  m_Layer: 20
+  - component: {fileID: -8578781269893033595}
+  m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +78,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHealth: 100
+--- !u!114 &-8578781269893033595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466211063013194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575303c7ad6328541bfa0c92d5c3522d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageToDeal: 100
 --- !u!1 &1688342680617018
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +103,7 @@ GameObject:
   - component: {fileID: 33245068366593174}
   - component: {fileID: 23975757716173612}
   - component: {fileID: 65366842459264650}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
