@@ -65,28 +65,18 @@ public class ShopInstance : MonoBehaviour
                 }
                 GameObject newComponentSlot = Instantiate(shopSlotPrefab, myShopSlotsContainer.transform);
                 newComponentSlot.transform.localPosition = new Vector3((j - columnMod), 0, (i - rowMod));
-                PriceText componentPrice = newComponentSlot.GetComponent<PriceText>();
-
-                if (componentPrice != null)
-                {
-                    if (componentsToSet[i + j].Item1 == 0)
-                    {
-                        componentPrice.ItemPriceString = "FREE";
-                    } else
-                    {
-                        componentPrice.ItemPriceString = $"${componentsToSet[i + j].Item1}";
-                    }   
-                }
 
                 SlotMouseController componentController = newComponentSlot.GetComponent<SlotMouseController>();
                 if (componentController != null)
                 {
+                    componentController.myPrice = componentsToSet[i + j].Item1;
                     componentController.myShipComponent = componentsToSet[i + j].Item2;
+                    componentController.enabled = true;
                 }
 
-                if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.LASER)
+                if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.LASER && componentController != null)
                 {
-                    GameObject newComponentForSale = Instantiate(laserPrefab, newComponentSlot.transform);
+                    GameObject newComponentForSale = Instantiate(laserPrefab, componentController.myItemSlot.transform);
                 }
             }
             

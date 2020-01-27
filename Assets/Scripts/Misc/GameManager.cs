@@ -44,7 +44,8 @@ public class GameManager : Singleton<GameManager>
             {
                 new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
                 new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
-                new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER)
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(1500, Definitions.SHIPCOMPONENTS.LASER)
             };
             partsShipShop.SetShopSlots(startingComponents);
         }
@@ -112,6 +113,9 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(lengthOfRun);
         StopRun();
+        // Reward Player
+        int reward = (int)(UnityEngine.Random.Range(100, 1000));
+        MoneyManager.Instance.Reward(reward);
     }
 
     public void StopRun()

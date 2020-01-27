@@ -8,18 +8,22 @@ public class SlotMouseController : MonoBehaviour
 {
     [Header("Settings")]
     public Definitions.SHIPCOMPONENTS myShipComponent;
+    public int myPrice = 0;
 
     [Header("References")]
     public Material defaultMaterial;
     public Material onHoverMaterial;
+    public Material onHoverProblemMaterial;
     public GameObject myBaseModel;
+    public GameObject myItemSlot;
 
     private Renderer myBaseRenderer;
+    private PriceText myPriceText;
     private bool grabbed = false;
 
     private void Start()
     {
-        if (defaultMaterial == null || onHoverMaterial == null || myBaseModel == null)
+        if (defaultMaterial == null || onHoverMaterial == null || onHoverProblemMaterial == null || myBaseModel == null || myItemSlot == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -35,11 +39,35 @@ public class SlotMouseController : MonoBehaviour
         }
 
         myBaseRenderer.material = defaultMaterial;
+
+        myPriceText = gameObject.GetComponent<PriceText>();
+        SetPrice();
+    }
+
+    private void SetPrice()
+    {
+        if (myPriceText != null)
+        {
+            if (myPrice == 0)
+            {
+                myPriceText.ItemPriceString = "FREE";
+            }
+            else
+            {
+                myPriceText.ItemPriceString = $"${myPrice}";
+            }
+        }
     }
 
     private void OnMouseEnter()
     {
-        myBaseRenderer.material = onHoverMaterial;
+        if (MoneyManager.Instance.CanAfford(myPrice))
+        {
+            myBaseRenderer.material = onHoverMaterial;
+        } else
+        {
+            myBaseRenderer.material = onHoverProblemMaterial;
+        }
     }
 
     private void OnMouseExit()
@@ -55,9 +83,23 @@ public class SlotMouseController : MonoBehaviour
             return;
         }
 
+        if (!MoneyManager.Instance.CanAfford(myPrice))
+        {
+            Debug.LogWarning($"Can't afford {myPrice}");
+            return;
+        }
+
         EventManager.Instance.PlayerHasComponent = true;
         EventManager.Instance.componentInMouse = this;
         grabbed = true;
+    }
+
+    private void DeleteSlotItems()
+    {
+        for (int i = 0; i < myItemSlot.transform.childCount; i++)
+        {
+            Destroy(myItemSlot.transform.GetChild(i).gameObject);
+        }
     }
 
     private void OnMouseUp()
@@ -73,11 +115,12 @@ public class SlotMouseController : MonoBehaviour
 
         if (EventManager.Instance.attachpointUnderMouse)
         {
-            // TODO money
+            MoneyManager.Instance.Purchase(myPrice);
 
             gameObject.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<PriceText>().ItemPriceString = "SOLD";
             myBaseModel.SetActive(false);
+            DeleteSlotItems();
             EventManager.Instance.attachpointUnderMouse.InstallComponent(myShipComponent);
         }
     }

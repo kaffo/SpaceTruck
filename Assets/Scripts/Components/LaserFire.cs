@@ -21,6 +21,15 @@ public class LaserFire : MonoBehaviour
         GameManager.Instance.OnRunEnd += OnRunEnd;
     }
 
+    private void OnDisable()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnRunStart -= OnRunStart;
+            GameManager.Instance.OnRunEnd -= OnRunEnd;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         IShootable otherShootable = other.GetComponent(typeof(IShootable)) as IShootable;
