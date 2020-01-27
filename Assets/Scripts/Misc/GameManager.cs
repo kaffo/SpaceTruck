@@ -6,13 +6,20 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [Header("References")]
+    public Camera mainGameCamera;
     public GameObject partsShip;
     public ShipMovement moveScript;
     public List<GameObject> gameObjectsToHide;
 
+    private enum CAMERAPOSITION
+    {
+        DEFAULT,
+        PARTSHIP
+    }
+
     private void Start()
     {
-        if (partsShip == null || moveScript == null || gameObjectsToHide == null)
+        if (mainGameCamera == null || partsShip == null || moveScript == null || gameObjectsToHide == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -30,20 +37,60 @@ public class GameManager : Singleton<GameManager>
             };
             partsShipShop.SetShopSlots(startingComponents);
         }
+
+        // Move the camera, we'll fix this later
+        StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP));
+    }
+
+    private IEnumerator LerpCameraToPosition(CAMERAPOSITION positionToSwitchTo)
+    {
+        Vector3 targetPos = new Vector3();
+        bool showGameObjects = false;
+
+        switch (positionToSwitchTo)
+        {
+            case CAMERAPOSITION.PARTSHIP:
+                targetPos = new Vector3(-3, 10, 0);
+                showGameObjects = true;
+                break;
+            default:
+            case CAMERAPOSITION.DEFAULT:
+                targetPos = new Vector3(0, 10, 0);
+                showGameObjects = false;
+                ToggleHideGameObjects(showGameObjects); // Hide Early
+                break;
+        }
+        
+        Vector3 camPos = mainGameCamera.transform.localPosition;
+        while (Vector3.Distance(camPos, targetPos) > 0.01)
+        {
+            camPos = mainGameCamera.transform.localPosition = Vector3.MoveTowards(camPos, targetPos, 0.025f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        // Show/Hide late
+        if (positionToSwitchTo == CAMERAPOSITION.PARTSHIP)
+        {
+            ToggleHideGameObjects(showGameObjects);
+        }
+    }
+
+    private void ToggleHideGameObjects(bool show)
+    {
+        if (gameObjectsToHide.Count > 0)
+        {
+            foreach (GameObject gameObjectToHide in gameObjectsToHide)
+            {
+                gameObjectToHide.SetActive(show);
+            }
+        }
     }
 
     public void StartRun()
     {
         Debug.Log("Starting Run");
+        StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.DEFAULT)); // TODO move this
         partsShip.SetActive(false);
-
-        if (gameObjectsToHide.Count > 0)
-        {
-            foreach (GameObject gameObjectToHide in gameObjectsToHide)
-            {
-                gameObjectToHide.SetActive(false);
-            }
-        }
 
         moveScript.distToMove = 0.01f;
         StartCoroutine(StartTimedRun(5f));
@@ -61,12 +108,6 @@ public class GameManager : Singleton<GameManager>
         moveScript.distToMove = 0.00f;
         partsShip.SetActive(true);
 
-        if (gameObjectsToHide.Count > 0)
-        {
-            foreach (GameObject gameObjectToHide in gameObjectsToHide)
-            {
-                gameObjectToHide.SetActive(true);
-            }
-        }
+        StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP)); // TODO move this
     }
 }

@@ -1071,6 +1071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b8bf6ae89434c438a019f8e628a199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainGameCamera: {fileID: 1359847326}
   partsShip: {fileID: 1076825448}
   moveScript: {fileID: 166064552}
   gameObjectsToHide:
@@ -1183,7 +1184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &879969130
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1454,7 +1455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1223097516}
   m_Layer: 5
-  m_Name: BottomPanel
+  m_Name: BottomContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
