@@ -20,7 +20,6 @@ public class SlotMouseController : MonoBehaviour
     private Renderer myBaseRenderer;
     private PriceText myPriceText;
     private bool grabbed = false;
-    private Vector3 grabOffset = new Vector3();
     private Definitions.DIRECTIONS myDirection = Definitions.DIRECTIONS.FORWARD;
 
     private void Start()

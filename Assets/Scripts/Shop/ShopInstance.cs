@@ -12,8 +12,8 @@ public class ShopInstance : MonoBehaviour
     public GameObject laserPrefab; // TODO refactor
 
     [Header("Settings")]
-    public int shopHeight = 5;
-    public int shopWidth = 5;
+    public int shopHeight = 4;
+    public int shopWidth = 4;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class ShopInstance : MonoBehaviour
             return;
         }
 
-        myModel.transform.localScale = new Vector3(shopWidth, 1, shopHeight);
+        myModel.transform.localScale = new Vector3(shopWidth + 1, 1, shopHeight + 1);
     }
 
     public void SetShopSlots(List<Tuple<int, Definitions.SHIPCOMPONENTS>> componentsToSet)
@@ -64,7 +64,7 @@ public class ShopInstance : MonoBehaviour
                     break;
                 }
                 GameObject newComponentSlot = Instantiate(shopSlotPrefab, myShopSlotsContainer.transform);
-                newComponentSlot.transform.localPosition = new Vector3((j - columnMod), 0, (i - rowMod));
+                newComponentSlot.transform.localPosition = new Vector3((j - columnMod) * 1.1f, 0, (i - rowMod) * 1.1f);
 
                 SlotMouseController componentController = newComponentSlot.GetComponent<SlotMouseController>();
                 if (componentController != null)

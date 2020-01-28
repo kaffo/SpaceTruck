@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    public GameObject frontTargets;
+    public GameObject targets;
     public GameObject asteroidPrefab;
     public int maxAsteroids = 100;
     public int minAsteroids = 15;
@@ -14,7 +14,7 @@ public class AsteroidManager : MonoBehaviour
 
     private void Start()
     {
-        if (frontTargets == null || asteroidPrefab == null)
+        if (asteroidPrefab == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -29,10 +29,13 @@ public class AsteroidManager : MonoBehaviour
     {
         List<Vector3> targetVectorList = new List<Vector3>();
 
-        foreach (Transform target in frontTargets.GetComponentsInChildren<Transform>())
+        if (targets != null)
         {
-            if (target == frontTargets.transform) { continue; }
-            targetVectorList.Add(target.position);
+            foreach (Transform target in targets.GetComponentsInChildren<Transform>())
+            {
+                if (target == targets.transform) { continue; }
+                targetVectorList.Add(target.position);
+            }
         }
 
         int numToSpawn = Random.Range(minAsteroids, maxAsteroids);
@@ -49,7 +52,8 @@ public class AsteroidManager : MonoBehaviour
             y += spawnOrigin.y;
             z += spawnOrigin.z;
             GameObject asteroid = Instantiate(asteroidPrefab, this.transform, false);
-            asteroid.transform.localPosition = new Vector3(x, y, z);
+            Vector3 spawnPosition = new Vector3(x, y, z);
+            asteroid.transform.localPosition = spawnPosition;
             asteroid.transform.rotation = Random.rotation;
             AsteroidMove asteroidMoveScript = asteroid.GetComponent<AsteroidMove>();
 
@@ -59,7 +63,15 @@ public class AsteroidManager : MonoBehaviour
                 return;
             }
 
-            asteroidMoveScript.targetPosition = targetVectorList[(int)(Random.value * targetVectorList.Count)];
+            if (targets != null)
+            {
+                asteroidMoveScript.targetPosition = targetVectorList[(int)(Random.value * targetVectorList.Count)];
+            } else
+            {
+                Vector3 targetPosition = new Vector3(x, y, -z);
+                asteroidMoveScript.targetPosition = targetPosition;
+            }
+            
             asteroidMoveScript.enabled = true;
         }
     }

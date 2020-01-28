@@ -135,7 +135,7 @@ public class GameManager : Singleton<GameManager>
         StopRun();
         // Fill parts ship
         partsShip.GetComponent<ShopInstance>().ClearShopSlots();
-        partsShip.GetComponent<ShopInstance>().RandomFillShopSlots(1, 25);
+        partsShip.GetComponent<ShopInstance>().RandomFillShopSlots(1, 10);
         // Reward Player
         int reward = (int)(UnityEngine.Random.Range(100, 1000));
         MoneyManager.Instance.Reward(reward);
