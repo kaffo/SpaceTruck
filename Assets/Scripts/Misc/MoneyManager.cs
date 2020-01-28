@@ -10,6 +10,8 @@ public class MoneyManager : Singleton<MoneyManager>
         get { return playerMoney; }
     }
 
+    public delegate void OnPlayerMoneyChangeDelegate(int newTotal);
+    public event OnPlayerMoneyChangeDelegate OnPlayerMoneyChange;
 
     public bool CanAfford(int price)
     {
@@ -22,6 +24,7 @@ public class MoneyManager : Singleton<MoneyManager>
         {
             playerMoney -= price;
             Debug.Log($"New player money ${playerMoney}");
+            OnPlayerMoneyChange?.Invoke(playerMoney);
             return true;
         } else
         {
@@ -33,5 +36,6 @@ public class MoneyManager : Singleton<MoneyManager>
     {
         playerMoney += amount;
         Debug.Log($"New player money ${playerMoney}");
+        OnPlayerMoneyChange?.Invoke(playerMoney);
     }
 }

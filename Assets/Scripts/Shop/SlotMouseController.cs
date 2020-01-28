@@ -20,6 +20,7 @@ public class SlotMouseController : MonoBehaviour
     private Renderer myBaseRenderer;
     private PriceText myPriceText;
     private bool grabbed = false;
+    private Vector3 grabOffset = new Vector3();
 
     private void Start()
     {
@@ -42,6 +43,33 @@ public class SlotMouseController : MonoBehaviour
 
         myPriceText = gameObject.GetComponent<PriceText>();
         SetPrice();
+    }
+
+    private void Update()
+    {
+        if (grabbed)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Camera.main.transform.position.y - myItemSlot.transform.position.y;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            myItemSlot.transform.position = mouseWorldPos;
+        }
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnPlayerPickupComponent += OnGrabComponentStart;
+        EventManager.Instance.OnPlayerDropComponent += OnGrabComponentEnd;
+    }
+
+    private void OnDisable()
+    {
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.OnPlayerPickupComponent -= OnGrabComponentStart;
+            EventManager.Instance.OnPlayerDropComponent -= OnGrabComponentEnd;
+        }
     }
 
     private void SetPrice()
@@ -92,6 +120,11 @@ public class SlotMouseController : MonoBehaviour
         EventManager.Instance.PlayerHasComponent = true;
         EventManager.Instance.componentInMouse = this;
         grabbed = true;
+
+        // Offset code for grabbing object, might reintroduce later
+        /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            grabOffset = hitInfo.point - transform.position;*/
     }
 
     private void DeleteSlotItems()
@@ -117,11 +150,27 @@ public class SlotMouseController : MonoBehaviour
         {
             MoneyManager.Instance.Purchase(myPrice);
 
+            EventManager.Instance.OnPlayerPickupComponent -= OnGrabComponentStart;
+            EventManager.Instance.OnPlayerDropComponent -= OnGrabComponentEnd;
+
             gameObject.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<PriceText>().ItemPriceString = "SOLD";
             myBaseModel.SetActive(false);
             DeleteSlotItems();
             EventManager.Instance.attachpointUnderMouse.InstallComponent(myShipComponent);
+        } else
+        {
+            myItemSlot.transform.localPosition = Vector3.zero;
         }
+    }
+
+    private void OnGrabComponentStart()
+    {
+        myBaseModel.SetActive(false);
+    }
+
+    private void OnGrabComponentEnd()
+    {
+        myBaseModel.SetActive(true);
     }
 }

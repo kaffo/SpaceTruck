@@ -29,4 +29,20 @@ public class MoneyUIUpdate : MonoBehaviour
 
         moneyText.text = $"${playerMoney}";
     }
+
+    private void OnEnable()
+    {
+        MoneyManager.Instance.OnPlayerMoneyChange += OnPlayerMoneyChange;
+    }
+
+    private void OnDisable()
+    {
+        if (MoneyManager.Instance != null) 
+            MoneyManager.Instance.OnPlayerMoneyChange -= OnPlayerMoneyChange;
+    }
+
+    private void OnPlayerMoneyChange(int newTotal)
+    {
+        PlayerMoney = newTotal;
+    }
 }
