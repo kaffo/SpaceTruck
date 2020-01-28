@@ -26,7 +26,7 @@ public class AttachPoint : MonoBehaviour
         }
     }
 
-    public void AttachComponent(GameObject component)
+    public void AttachComponent(GameObject component, Definitions.DIRECTIONS attachDirection)
     {
         if (HasComponentAttached)
         {
@@ -34,9 +34,30 @@ public class AttachPoint : MonoBehaviour
             return;
         }
 
+        Vector3 rotateDirection = new Vector3();
+        switch (attachDirection)
+        {
+            case Definitions.DIRECTIONS.FORWARD:
+                rotateDirection = new Vector3(0, 0, 0);
+                break;
+            case Definitions.DIRECTIONS.RIGHT:
+                rotateDirection = new Vector3(0, 90, 0);
+                break;
+            case Definitions.DIRECTIONS.BACKWARD:
+                rotateDirection = new Vector3(0, 180, 0);
+                break;
+            case Definitions.DIRECTIONS.LEFT:
+                rotateDirection = new Vector3(0, 270, 0);
+                break;
+            default:
+                break;
+        }
+
+        Quaternion rotation = Quaternion.Euler(rotateDirection);
+
         component.transform.SetParent(myAttachPoint.transform);
         component.transform.localPosition = Vector3.zero;
-        component.transform.localRotation = Quaternion.identity;
+        component.transform.localRotation = rotation;
 
         if (!HasComponentAttached)
         {

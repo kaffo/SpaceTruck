@@ -21,6 +21,7 @@ public class SlotMouseController : MonoBehaviour
     private PriceText myPriceText;
     private bool grabbed = false;
     private Vector3 grabOffset = new Vector3();
+    private Definitions.DIRECTIONS myDirection = Definitions.DIRECTIONS.FORWARD;
 
     private void Start()
     {
@@ -54,6 +55,33 @@ public class SlotMouseController : MonoBehaviour
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
             myItemSlot.transform.position = mouseWorldPos;
+
+            // Rotate Left
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                myItemSlot.transform.Rotate(new Vector3(0, -90, 0));
+                if (myDirection == Definitions.DIRECTIONS.FORWARD)
+                {
+                    myDirection = Definitions.DIRECTIONS.LEFT;
+                } else
+                {
+                    myDirection--;
+                }
+            }
+
+            // Rotate Left
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                myItemSlot.transform.Rotate(new Vector3(0, 90, 0));
+                if (myDirection == Definitions.DIRECTIONS.LEFT)
+                {
+                    myDirection = Definitions.DIRECTIONS.FORWARD;
+                }
+                else
+                {
+                    myDirection++;
+                }
+            }
         }
     }
 
@@ -155,9 +183,9 @@ public class SlotMouseController : MonoBehaviour
 
             gameObject.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<PriceText>().ItemPriceString = "SOLD";
-            myBaseModel.SetActive(false);
             DeleteSlotItems();
-            EventManager.Instance.attachpointUnderMouse.InstallComponent(myShipComponent);
+            EventManager.Instance.attachpointUnderMouse.InstallComponent(myShipComponent, myDirection);
+            myBaseModel.SetActive(false);
         } else
         {
             myItemSlot.transform.localPosition = Vector3.zero;

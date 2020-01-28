@@ -9,4 +9,12 @@ public static class Definitions
         NONE,
         LASER
     }
+
+    public enum DIRECTIONS
+    {
+        FORWARD,
+        RIGHT,
+        BACKWARD,
+        LEFT
+    }
 }

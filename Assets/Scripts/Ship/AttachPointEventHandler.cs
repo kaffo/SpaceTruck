@@ -74,7 +74,7 @@ public class AttachPointEventHandler : MonoBehaviour
         EventManager.Instance.attachpointUnderMouse = null;
     }
 
-    public void InstallComponent(Definitions.SHIPCOMPONENTS purchasedComponent)
+    public void InstallComponent(Definitions.SHIPCOMPONENTS purchasedComponent, Definitions.DIRECTIONS installDirection)
     {
         EventManager.Instance.attachpointUnderMouse = null;
         myCollider.enabled = false;
@@ -90,7 +90,7 @@ public class AttachPointEventHandler : MonoBehaviour
         {
             case Definitions.SHIPCOMPONENTS.LASER:
                 GameObject component = Instantiate(laserPrefab);
-                attachPointScript.AttachComponent(component);
+                attachPointScript.AttachComponent(component, installDirection);
                 break;
             default:
             case Definitions.SHIPCOMPONENTS.NONE:

@@ -22,6 +22,7 @@ public class ArmourHitCheck : MonoBehaviour
             {
                 GameManager.Instance.GameOver();
             }
+            Destroy(shipDamageScript.gameObject);
         }
     }
 }
