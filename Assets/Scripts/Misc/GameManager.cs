@@ -56,27 +56,45 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator LerpCameraToPosition(CAMERAPOSITION positionToSwitchTo)
     {
-        Vector3 targetPos = new Vector3();
+        Vector3 camTargetPos = new Vector3();
+        Vector3 partsTargetPos = new Vector3();
+        Vector3 partsStartPos = new Vector3();
         bool showGameObjects = false;
 
         switch (positionToSwitchTo)
         {
             case CAMERAPOSITION.PARTSHIP:
-                targetPos = new Vector3(-3, 10, 0);
+                camTargetPos = new Vector3(-3, 10, 0);
+                partsStartPos = new Vector3(-7.5f, 0, -15);
+                partsTargetPos = new Vector3(-7.5f, 0, 0);
                 showGameObjects = true;
                 break;
             default:
             case CAMERAPOSITION.DEFAULT:
-                targetPos = new Vector3(0, 10, 0);
+                camTargetPos = new Vector3(0, 10, 0);
+                partsStartPos = partsShip.transform.position;
+                partsTargetPos = new Vector3(-7.5f, 0, 15);
                 showGameObjects = false;
                 ToggleHideGameObjects(showGameObjects); // Hide Early
                 break;
         }
-        
+
+        partsShip.transform.position = partsStartPos;
         Vector3 camPos = mainGameCamera.transform.localPosition;
-        while (Vector3.Distance(camPos, targetPos) > 0.01)
+        while (Vector3.Distance(camPos, camTargetPos) > 0.01 || Vector3.Distance(partsShip.transform.position, partsTargetPos) > 0.01)
         {
-            camPos = mainGameCamera.transform.localPosition = Vector3.MoveTowards(camPos, targetPos, 0.025f);
+            camPos = mainGameCamera.transform.localPosition = Vector3.MoveTowards(camPos, camTargetPos, 0.025f);
+
+            float partsMoveSpeed = 0;
+            if (positionToSwitchTo == CAMERAPOSITION.PARTSHIP)
+            {
+                partsMoveSpeed = Mathf.Clamp(Vector3.Distance(partsShip.transform.position, partsTargetPos) / 100, 0.015f, 0.075f);
+            } else
+            {
+                partsMoveSpeed = Mathf.Clamp(Vector3.Distance(partsShip.transform.position, partsStartPos) / 100, 0.015f, 0.075f);
+            }
+
+            partsShip.transform.position = Vector3.MoveTowards(partsShip.transform.position, partsTargetPos, partsMoveSpeed);
             yield return new WaitForEndOfFrame();
         }
 
@@ -84,6 +102,13 @@ public class GameManager : Singleton<GameManager>
         if (positionToSwitchTo == CAMERAPOSITION.PARTSHIP)
         {
             ToggleHideGameObjects(showGameObjects);
+        } else
+        {
+            partsShip.SetActive(false);
+
+            moveScript.distToMove = 0.01f;
+            gameCoroutine = StartCoroutine(StartTimedRun(timeOfRun));
+            OnRunStart?.Invoke();
         }
     }
 
@@ -102,11 +127,6 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("Starting Run");
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.DEFAULT)); // TODO move this
-        partsShip.SetActive(false);
-
-        moveScript.distToMove = 0.01f;
-        gameCoroutine = StartCoroutine(StartTimedRun(timeOfRun));
-        OnRunStart?.Invoke();
     }
 
     private IEnumerator StartTimedRun(float lengthOfRun)
