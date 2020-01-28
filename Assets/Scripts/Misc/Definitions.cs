@@ -7,7 +7,8 @@ public static class Definitions
     public enum SHIPCOMPONENTS
     {
         NONE,
-        LASER
+        LASER,
+        CARGO_TRACTOR
     }
 
     public enum DIRECTIONS

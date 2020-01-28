@@ -2245,6 +2245,8 @@ MonoBehaviour:
     type: 3}
   laserPrefab: {fileID: 5586230796422584415, guid: 22214e8c6c3c9674e9348a8db08289d1,
     type: 3}
+  tractorPrefab: {fileID: 6329959726760700085, guid: db522872e3213e24fa9c3460d124e873,
+    type: 3}
   shopHeight: 5
   shopWidth: 5
 --- !u!1001 &1107840658
@@ -2650,7 +2652,7 @@ MonoBehaviour:
   maxAsteroids: 2
   minAsteroids: 1
   spawnOrigin: {x: 0, y: 1, z: 20}
-  spawnAreaSize: {x: 10, y: 0, z: 10}
+  spawnAreaSize: {x: 7.5, y: 0, z: 10}
   exclusionZone: {x: 5, y: 0, z: 0}
 --- !u!1001 &1272920267
 PrefabInstance:
@@ -3970,6 +3972,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550952401604009579, guid: 8b33c332c95e8944b9c92de29cb74e47,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b33c332c95e8944b9c92de29cb74e47, type: 3}

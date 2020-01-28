@@ -44,7 +44,9 @@ public class GameManager : Singleton<GameManager>
             {
                 new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
                 new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER),
-                new Tuple<int, Definitions.SHIPCOMPONENTS>(0, Definitions.SHIPCOMPONENTS.LASER)
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(500, Definitions.SHIPCOMPONENTS.LASER),
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(500, Definitions.SHIPCOMPONENTS.LASER),
+                new Tuple<int, Definitions.SHIPCOMPONENTS>(500, Definitions.SHIPCOMPONENTS.CARGO_TRACTOR)
             };
             partsShipShop.SetShopSlots(startingComponents);
         }

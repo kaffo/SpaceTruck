@@ -69,6 +69,8 @@ MonoBehaviour:
   myBaseModel: {fileID: 1550952401604009579}
   laserPrefab: {fileID: 5586230796422584415, guid: 22214e8c6c3c9674e9348a8db08289d1,
     type: 3}
+  tractorPrefab: {fileID: 6329959726760700085, guid: db522872e3213e24fa9c3460d124e873,
+    type: 3}
   baseHideScript: {fileID: 8447580574499966266}
 --- !u!65 &3893177986856393747
 BoxCollider:

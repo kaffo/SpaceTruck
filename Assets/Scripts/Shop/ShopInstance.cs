@@ -10,6 +10,7 @@ public class ShopInstance : MonoBehaviour
     public GameObject myModel;
     public GameObject shopSlotPrefab;
     public GameObject laserPrefab; // TODO refactor
+    public GameObject tractorPrefab; // TODO refactor
 
     [Header("Settings")]
     public int shopHeight = 4;
@@ -17,7 +18,7 @@ public class ShopInstance : MonoBehaviour
 
     private void Start()
     {
-        if (myShopSlotsContainer == null || myModel == null || shopSlotPrefab == null || laserPrefab == null)
+        if (myShopSlotsContainer == null || myModel == null || shopSlotPrefab == null || laserPrefab == null || tractorPrefab == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -79,6 +80,10 @@ public class ShopInstance : MonoBehaviour
                     GameObject newComponentForSale = Instantiate(laserPrefab, componentController.myItemSlot.transform);
                     componentController.RotateComponent(Definitions.DIRECTIONS.RIGHT);
                 }
+                else if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.CARGO_TRACTOR && componentController != null)
+                {
+                    GameObject newComponentForSale = Instantiate(tractorPrefab, componentController.myItemSlot.transform);
+                }
             }
             
         }
@@ -93,7 +98,8 @@ public class ShopInstance : MonoBehaviour
         for (int i = 0; i < slotsToFill; i++)
         {
             int randomPrice = (int)UnityEngine.Random.Range(500, 2000);
-            shopComponents.Add(new Tuple<int, Definitions.SHIPCOMPONENTS>(randomPrice, Definitions.SHIPCOMPONENTS.LASER));
+            Definitions.SHIPCOMPONENTS componentToAdd = UnityEngine.Random.value >= 0.8 ? Definitions.SHIPCOMPONENTS.CARGO_TRACTOR : Definitions.SHIPCOMPONENTS.LASER;
+            shopComponents.Add(new Tuple<int, Definitions.SHIPCOMPONENTS>(randomPrice, componentToAdd));
         }
 
         SetShopSlots(shopComponents);

@@ -11,6 +11,7 @@ public class AttachPointEventHandler : MonoBehaviour
     public GameObject myHoverModel;
     public GameObject myBaseModel;
     public GameObject laserPrefab;
+    public GameObject tractorPrefab;
     public ShowHideOnRun baseHideScript;
 
     private Renderer myHoverRenderer;
@@ -18,7 +19,7 @@ public class AttachPointEventHandler : MonoBehaviour
 
     private void Start()
     {
-        if (defaultMaterial == null || onHoverMaterial == null || myHoverModel == null || laserPrefab == null || baseHideScript == null)
+        if (defaultMaterial == null || onHoverMaterial == null || myHoverModel == null || laserPrefab == null || tractorPrefab == null || baseHideScript == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -86,10 +87,15 @@ public class AttachPointEventHandler : MonoBehaviour
         EventManager.Instance.OnPlayerDropComponent -= OnPlayerDropComponent;
 
         AttachPoint attachPointScript = gameObject.GetComponent<AttachPoint>();
+        GameObject component;
         switch (purchasedComponent)
         {
             case Definitions.SHIPCOMPONENTS.LASER:
-                GameObject component = Instantiate(laserPrefab);
+                component = Instantiate(laserPrefab);
+                attachPointScript.AttachComponent(component, installDirection);
+                break;
+            case Definitions.SHIPCOMPONENTS.CARGO_TRACTOR:
+                component = Instantiate(tractorPrefab);
                 attachPointScript.AttachComponent(component, installDirection);
                 break;
             default:
