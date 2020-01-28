@@ -50,7 +50,7 @@ public class ShopInstance : MonoBehaviour
         }
 
         int rowCount = (int)Mathf.Ceil((float)componentCount / (float)shopHeight);
-        float rowMod = Mathf.Floor((float)shopHeight / 2);
+        float rowMod = Mathf.Floor((float)rowCount / 2);
         float columnMod = Mathf.Floor((float)shopWidth / 2);
 
         Debug.Log("Filling shop...");
@@ -77,9 +77,33 @@ public class ShopInstance : MonoBehaviour
                 if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.LASER && componentController != null)
                 {
                     GameObject newComponentForSale = Instantiate(laserPrefab, componentController.myItemSlot.transform);
+                    componentController.RotateComponent(Definitions.DIRECTIONS.RIGHT);
                 }
             }
             
+        }
+    }
+
+    public void RandomFillShopSlots(int minSlots, int maxSlots)
+    {
+        int slotsToFill = (int)Mathf.Clamp((float)UnityEngine.Random.Range(minSlots, maxSlots), 1f, (float)(shopHeight * shopWidth));
+        Debug.Log($"Filling {slotsToFill} slots");
+
+        List<Tuple<int, Definitions.SHIPCOMPONENTS>> shopComponents = new List<Tuple<int, Definitions.SHIPCOMPONENTS>>();
+        for (int i = 0; i < slotsToFill; i++)
+        {
+            int randomPrice = (int)UnityEngine.Random.Range(500, 2000);
+            shopComponents.Add(new Tuple<int, Definitions.SHIPCOMPONENTS>(randomPrice, Definitions.SHIPCOMPONENTS.LASER));
+        }
+
+        SetShopSlots(shopComponents);
+    }
+
+    public void ClearShopSlots()
+    {
+        for (int i = 0; i < myShopSlotsContainer.transform.childCount; i++)
+        {
+            Destroy(myShopSlotsContainer.transform.GetChild(i).gameObject);
         }
     }
 }

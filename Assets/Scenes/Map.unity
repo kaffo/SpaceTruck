@@ -1722,7 +1722,7 @@ MonoBehaviour:
     type: 3}
   maxAsteroids: 4
   minAsteroids: 1
-  spawnOrigin: {x: 0, y: 0, z: 20}
+  spawnOrigin: {x: 0, y: 1, z: 20}
   spawnAreaSize: {x: 5, y: 0, z: 10}
   exclusionZone: {x: 0, y: 0, z: 0}
 --- !u!114 &766438139
@@ -1742,7 +1742,7 @@ MonoBehaviour:
     type: 3}
   maxAsteroids: 3
   minAsteroids: 0
-  spawnOrigin: {x: -20, y: 0, z: 0}
+  spawnOrigin: {x: -20, y: 1, z: 0}
   spawnAreaSize: {x: 10, y: 0, z: 5}
   exclusionZone: {x: 0, y: 0, z: 0}
 --- !u!114 &766438140
@@ -1762,7 +1762,7 @@ MonoBehaviour:
     type: 3}
   maxAsteroids: 1
   minAsteroids: 0
-  spawnOrigin: {x: 0, y: 0, z: -20}
+  spawnOrigin: {x: 0, y: 1, z: -20}
   spawnAreaSize: {x: 5, y: 0, z: 10}
   exclusionZone: {x: 0, y: 0, z: 0}
 --- !u!114 &766438141
@@ -1782,7 +1782,7 @@ MonoBehaviour:
     type: 3}
   maxAsteroids: 3
   minAsteroids: 0
-  spawnOrigin: {x: 20, y: 0, z: 0}
+  spawnOrigin: {x: 20, y: 1, z: 0}
   spawnAreaSize: {x: 10, y: 0, z: 5}
   exclusionZone: {x: 0, y: 0, z: 0}
 --- !u!1 &786823182

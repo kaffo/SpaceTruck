@@ -85,6 +85,29 @@ public class SlotMouseController : MonoBehaviour
         }
     }
 
+    public void RotateComponent(Definitions.DIRECTIONS newDirection)
+    {
+        switch (newDirection)
+        {
+            case Definitions.DIRECTIONS.FORWARD:
+                myItemSlot.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                break;
+            case Definitions.DIRECTIONS.RIGHT:
+                myItemSlot.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                break;
+            case Definitions.DIRECTIONS.BACKWARD:
+                myItemSlot.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                break;
+            case Definitions.DIRECTIONS.LEFT:
+                myItemSlot.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+                break;
+            default:
+                myItemSlot.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                break;
+        }
+        myDirection = newDirection;
+    }
+
     private void OnEnable()
     {
         EventManager.Instance.OnPlayerPickupComponent += OnGrabComponentStart;
@@ -199,6 +222,7 @@ public class SlotMouseController : MonoBehaviour
 
     private void OnGrabComponentEnd()
     {
+        Debug.Log($"{gameObject.name} grab end");
         myBaseModel.SetActive(true);
     }
 }
