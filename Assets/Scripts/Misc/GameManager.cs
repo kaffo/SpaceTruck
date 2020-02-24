@@ -163,24 +163,32 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator StartTimedRun(float lengthOfRun)
     {
         yield return new WaitForSeconds(lengthOfRun);
-        StopRun();
-        // Fill parts ship
-        partsShip.GetComponent<ShopInstance>().ClearShopSlots();
-        partsShip.GetComponent<ShopInstance>().RandomFillShopSlots(1, 10);
+
         // Reward Player
         int reward = (int)successfulRunReward;
         MoneyManager.Instance.Reward(reward);
-        if (++runCount > totalRuns) { GameOver(); }
+
+        // Check end of game
+        if (++runCount < totalRuns) 
+        {
+            StopRun();
+            // Fill parts ship
+            partsShip.GetComponent<ShopInstance>().ClearShopSlots();
+            partsShip.GetComponent<ShopInstance>().RandomFillShopSlots(1, 10);
+        } else
+        {
+            GameOver();
+        }
     }
 
     public void StopRun()
     {
         Debug.Log("Ending Run");
         moveScript.distToMove = 0.00f;
-        partsShip.SetActive(true);
-        StartCoroutine(DecreaseShipPitchSound());
 
+        partsShip.SetActive(true);
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP)); // TODO move this
+        StartCoroutine(DecreaseShipPitchSound());
         OnRunEnd?.Invoke();
     }
 

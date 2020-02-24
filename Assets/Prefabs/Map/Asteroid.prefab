@@ -68,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedToMove: 0.01
+  randomSpeed: 1
+  randomSpeedDelta: 0.01
   speedToRotate: 0.05
   targetPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8238330938568055956
@@ -83,6 +85,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHealth: 100
+  myModel: {fileID: 4578068138543701716}
+  myAsteroidMove: {fileID: 114337794724815836}
+  explosionsPrefabList:
+  - {fileID: 132222, guid: ce9a6b1b3e673b54e8ad5746ee0af87d, type: 3}
+  - {fileID: 196814, guid: d76649cf19d5acf4a83c41295a514487, type: 3}
+  - {fileID: 112618, guid: 6f78e3f2221c21f428fa9f41f18f5392, type: 3}
+  - {fileID: 121360, guid: 0fa68b7a3e2f0664aa60e9db30faeb3a, type: 3}
+  - {fileID: 172038, guid: daa68a184b10b1e498d4227aa3433d9c, type: 3}
+  - {fileID: 193142, guid: 7872bd34536466f488398bd14a88cadd, type: 3}
+  - {fileID: 172614, guid: 0347f162c7ebeae4ea35eeec8f638c1b, type: 3}
+  - {fileID: 146748, guid: 729e3d6ea7dadb643b75250bfc7f3247, type: 3}
+  - {fileID: 112512, guid: 3b154cb7750ef3c42b1e5dc77466bc12, type: 3}
+  - {fileID: 167654, guid: ce3250aa5bf9b694f889ed741af81206, type: 3}
+  - {fileID: 198412, guid: 713398a148e185840a055a02d77722cf, type: 3}
+  - {fileID: 141060, guid: e528638b87d6bc4409383e4c1e073f0a, type: 3}
+  - {fileID: 129214, guid: 774560fb0921a884481fd39ada4691ad, type: 3}
 --- !u!114 &-8578781269893033595
 MonoBehaviour:
   m_ObjectHideFlags: 0

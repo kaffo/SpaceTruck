@@ -5,8 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class LaserFire : MonoBehaviour
 {
+    [Header("Settings")]
     public float rateOfFire = 5f;
     public float damage = 100f;
+
+    [Header("Audio")]
+    public AudioSource myAudioSource;
+    public List<AudioClip> laserFireSounds;
 
     private float lastFire = 0;
     private HashSet<GameObject> targetList = new HashSet<GameObject>();
@@ -14,6 +19,13 @@ public class LaserFire : MonoBehaviour
 
     private void Start()
     {
+        if (myAudioSource == null || laserFireSounds.Count <= 0)
+        {
+            Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
+            this.enabled = false;
+            return;
+        }
+
         myCollider = gameObject.GetComponent<Collider>();
         myCollider.enabled = false;
 
@@ -75,7 +87,10 @@ public class LaserFire : MonoBehaviour
             if (target != null && (Time.time - rateOfFire) > lastFire)
             {
                 IShootable shootableTarget = target.GetComponent(typeof(IShootable)) as IShootable;
-                Debug.Log($"{gameObject.name} shot for {damage} damage");
+                if (!shootableTarget.IsAlive()) { continue; }
+
+                Debug.Log($"{gameObject.name} shot {target.name} for {damage} damage");
+                myAudioSource.PlayOneShot(laserFireSounds[UnityEngine.Random.Range(0, laserFireSounds.Count)]);
                 shootableTarget.DoDamage(damage);
                 lastFire = Time.time;
             }
