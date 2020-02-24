@@ -1,0 +1,225 @@
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Ruaridh/.ssh/id_rsa):
+Created directory '/c/Users/Ruaridh/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/Ruaridh/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Ruaridh/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:fLznbBWSTQumpISFFEYfvPYIlRtVSjfrEU7Q/RTuHiA Ruaridh@DESKTOP-FIR13FR
+The key's randomart image is:
++---[RSA 3072]----+
+|     o=*oo++*. ..|
+|     .o.*o.=+++ .|
+|       o.*.E+* = |
+|      ..=...+.* .|
+|       oSoo .. + |
+|        ....  o .|
+|          . .. . |
+|           +.    |
+|           .o    |
++----[SHA256]-----+
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ cat .ssh/id_rsa
+id_rsa      id_rsa.pub
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ cat .ssh/id_rsa.pub
+Display all 40 possibilities? (y or n)
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ cat .ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6fqGlLNYbUqH3XpFv9iJnAL7JmHRSQnwY8nXnkupuboib0y7Y7sY+fQ3XaiHjObSZvjlt6nIN/u42ozfEzbzPDTBXzmQE8sJbRIwe/kyyt6loT/j9r2zijGK4WS7jEPrm98azzmLUzkp41vJErAK5sF1knPr8mxFzxFdAOdjwdf8fmKGoALugwgoj2KRJUfit18s6XWL3AGboNb8TwBpe6gqI66Mr51zEBMYbum3JU81m9LAIKYLXenP72K3ccIHr7yyJax05b3QMK5gZUwsbtBpjPhxEhhSLlk+fqlRRrFuRBjZwBSBxglAILZbrfkaVSnDo8wwhDCGQDOYv8DZ4hHqaDFX7w3IZBSAc776Yv9yfMZ1S/sXpSk+a13Ucy14Y4PsZZ6AoDpMXFwegdAaJcJh8taWodGFTsvdhP4VqLekJw1mgJK2WTNtmFYkiyl+9kWyoyLMHePg/Sr2gQgFq+/WkrtKR+lWcduyYNbYUliZSsDLdsADpHpRPN/Wttm0= Ruaridh@DESKTOP-FIR13FR
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ ^C
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ cd /d/
+$RECYCLE.BIN/                      Artings/                           Important Files/                   msdia80.dll                        SteamTings/                        System Volume Information/
+Anime/                             HARD DRIVE BACKUP/                 keirasmithcv-traditional-1219.pdf  msdownld.tmp/                      StreamLabsVideo/                   TennoGen Files/
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ cd /d/
+$RECYCLE.BIN/                      Artings/                           Important Files/                   msdia80.dll                        SteamTings/                        System Volume Information/
+Anime/                             HARD DRIVE BACKUP/                 keirasmithcv-traditional-1219.pdf  msdownld.tmp/                      StreamLabsVideo/                   TennoGen Files/
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 ~
+$ cd /d/
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d
+$ mkdir Workspace
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d
+$ cd Workspace
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace
+$ git clone https://github.com/kaffo/SpaceTruck.git
+Cloning into 'SpaceTruck'...
+Logon failed, use ctrl+c to cancel basic credential prompt.
+error: unable to read askpass response from 'C:/Program Files/Git/mingw64/libexec/git-core/git-gui--askpass'
+Username for 'https://github.com':
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace
+$ git clone https://github.com/kaffo/SpaceTruck.git
+Cloning into 'SpaceTruck'...
+remote: Enumerating objects: 302, done.
+remote: Counting objects: 100% (302/302), done.
+remote: Compressing objects: 100% (211/211), done.
+remote: Total 302 (delta 131), reused 259 (delta 88), pack-reused 0
+Receiving objects: 100% (302/302), 16.91 MiB | 9.43 MiB/s, done.
+Resolving deltas: 100% (131/131), done.
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace
+$ gitstatus
+bash: gitstatus: command not found
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace
+$ git status
+fatal: not a git repository (or any of the parent directories): .git
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace
+$ cd SpaceTruck
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git add README.md
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   README.md
+
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git commit
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'Ruaridh@DESKTOP-FIR13FR.(none)')
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git config --global user.email "ruaridhsmithart@gmail.com"
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git config --global user.name "Ruaridh-Smith"
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git commit
+[master 20d3bb0] Updated readme
+ 1 file changed, 1 insertion(+)
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git log
+commit 20d3bb0c6667532924d7d0d12a287cfaf81ded2b (HEAD -> master)
+Author: Ruaridh-Smith <ruaridhsmithart@gmail.com>
+Date:   Mon Jan 27 17:39:13 2020 +0000
+
+    Updated readme
+
+    Added some flavour text to the readme
+    fixes #8
+
+commit 98f776f74d0722cf8705f8fd2a246d4923b37c17 (origin/master, origin/HEAD)
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 16:37:02 2020 +0000
+
+    Asteroids spawn
+
+    Fixes #3
+
+commit 5e3aa74200c99a168d381510024998425b3336a2
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 15:57:55 2020 +0000
+
+    Basic buy working
+
+    Fixes #6
+
+commit 5b4b8b295387375953398ff1ee6d9a7a3b999f1d
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 15:00:58 2020 +0000
+
+    Click + drag hilights for shop
+
+commit fce51170c7e7072a6cf743840dc2a855b4b56610
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 14:26:05 2020 +0000
+
+    Shop Item Hover + Nice camera transition
+
+commit f65e297973c4136d292a5147e7f430b02f035993
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 12:09:34 2020 +0000
+
+    Shop filling + Start of laser
+
+    Contains work for #1 and #2
+
+commit 9e4eb755632d099d26b5d0a4bc10e0633a619018
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 10:44:12 2020 +0000
+
+    Parts ship + run start
+
+commit 2cb740f61f3d274e211fe92020f36da93fdb7b84
+Author: Keir Smith <kaffse@gmail.com>
+Date:   Mon Jan 27 09:27:19 2020 +0000
+
+    Added assets from ai_ship
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git log --oneline --color --graph
+* 20d3bb0 (HEAD -> master) Updated readme
+* 98f776f (origin/master, origin/HEAD) Asteroids spawn
+* 5e3aa74 Basic buy working
+* 5b4b8b2 Click + drag hilights for shop
+* fce5117 Shop Item Hover + Nice camera transition
+* f65e297 Shop filling + Start of laser
+* 9e4eb75 Parts ship + run start
+* 2cb740f Added assets from ai_ship
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git pull
+Already up to date.
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 340 bytes | 340.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/kaffo/SpaceTruck.git
+   98f776f..20d3bb0  master -> master
+
+Ruaridh@DESKTOP-FIR13FR MINGW64 /d/Workspace/SpaceTruck (master)
+$
