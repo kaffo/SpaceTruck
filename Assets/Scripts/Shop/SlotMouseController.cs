@@ -167,8 +167,8 @@ public class SlotMouseController : MonoBehaviour
             return;
         }
 
-        EventManager.Instance.PlayerHasComponent = true;
         EventManager.Instance.componentInMouse = this;
+        EventManager.Instance.PlayerHasComponent = true;
         grabbed = true;
 
         // Offset code for grabbing object, might reintroduce later

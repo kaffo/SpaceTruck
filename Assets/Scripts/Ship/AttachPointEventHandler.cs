@@ -96,6 +96,15 @@ public class AttachPointEventHandler : MonoBehaviour
                 break;
             case Definitions.SHIPCOMPONENTS.CARGO_TRACTOR:
                 component = Instantiate(tractorPrefab);
+
+                // Disable grab listener
+                ToggleActiveOnGrab grabListenerScript = component.GetComponent<ToggleActiveOnGrab>();
+                if (grabListenerScript != null) { grabListenerScript.enabled = false; }
+
+                // Enable run listener
+                ToggleActiveOnRunStart runListenerScript = component.GetComponent<ToggleActiveOnRunStart>();
+                if (runListenerScript != null) { runListenerScript.enabled = true; }
+
                 attachPointScript.AttachComponent(component, installDirection);
                 break;
             default:

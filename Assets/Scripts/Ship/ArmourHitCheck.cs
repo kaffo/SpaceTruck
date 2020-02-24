@@ -6,6 +6,36 @@ using UnityEngine;
 public class ArmourHitCheck : MonoBehaviour
 {
     public bool beenHit = false;
+
+    public List<AudioClip> hitSoundList;
+
+    private AudioSource myAudioSource;
+
+    private void Start()
+    {
+        myAudioSource = transform.parent.GetComponent<AudioSource>();
+        if (myAudioSource == null)
+        {
+            Debug.LogError($"Cannot find Audio Source for {gameObject.name}");
+            this.enabled = false;
+            return;
+        }
+
+        if (hitSoundList.Count <= 0)
+        {
+            Debug.LogError($"No hitsounds configured for {gameObject.name}");
+            this.enabled = false;
+            return;
+        }
+    }
+
+    private void PlayRandomHitSound()
+    {
+        int i = UnityEngine.Random.Range(0, hitSoundList.Count);
+        AudioClip audioClip = hitSoundList[i];
+        myAudioSource.PlayOneShot(audioClip);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         ShipDamage shipDamageScript = other.GetComponent<ShipDamage>();
@@ -14,6 +44,8 @@ public class ArmourHitCheck : MonoBehaviour
 
         if (shipDamageScript != null)
         {
+            PlayRandomHitSound();
+
             if (!beenHit)
             {
                 Debug.Log($"Hit on {gameObject.name}!");

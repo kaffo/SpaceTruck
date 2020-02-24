@@ -7,12 +7,21 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("Settings")]
     public float timeOfRun = 10f;
+    public int totalRuns = 5;
+    public float successfulRunReward = 500f;
+    public float shipLowPitch = 0.5f;
+    public float shipHighPitch = 1.5f;
 
     [Header("References")]
     public Camera mainGameCamera;
     public GameObject partsShip;
     public ShipMovement moveScript;
+    public AudioSource shipAudio;
     public List<GameObject> gameObjectsToHide;
+    public GameOverRunsCounter gameOverUIScript;
+
+    [HideInInspector]
+    public int runCount = 1;
 
     public delegate void OnRunStartDelegate();
     public event OnRunStartDelegate OnRunStart;
@@ -30,7 +39,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        if (mainGameCamera == null || partsShip == null || moveScript == null || gameObjectsToHide == null)
+        if (mainGameCamera == null || partsShip == null || moveScript == null || shipAudio == null ||
+            gameObjectsToHide == null || gameOverUIScript == null)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -110,7 +120,26 @@ public class GameManager : Singleton<GameManager>
 
             moveScript.distToMove = 0.01f;
             gameCoroutine = StartCoroutine(StartTimedRun(timeOfRun));
+            StartCoroutine(IncreaseShipPitchSound());
             OnRunStart?.Invoke();
+        }
+    }
+
+    private IEnumerator IncreaseShipPitchSound()
+    {
+        while (shipAudio.pitch < shipHighPitch)
+        {
+            shipAudio.pitch += 0.01f;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    private IEnumerator DecreaseShipPitchSound()
+    {
+        while (shipAudio.pitch > shipLowPitch)
+        {
+            shipAudio.pitch -= 0.01f;
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -139,8 +168,9 @@ public class GameManager : Singleton<GameManager>
         partsShip.GetComponent<ShopInstance>().ClearShopSlots();
         partsShip.GetComponent<ShopInstance>().RandomFillShopSlots(1, 10);
         // Reward Player
-        int reward = (int)(UnityEngine.Random.Range(100, 1000));
+        int reward = (int)successfulRunReward;
         MoneyManager.Instance.Reward(reward);
+        if (++runCount > totalRuns) { GameOver(); }
     }
 
     public void StopRun()
@@ -148,6 +178,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Ending Run");
         moveScript.distToMove = 0.00f;
         partsShip.SetActive(true);
+        StartCoroutine(DecreaseShipPitchSound());
 
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP)); // TODO move this
         OnRunEnd?.Invoke();
@@ -156,8 +187,11 @@ public class GameManager : Singleton<GameManager>
     public void GameOver()
     {
         StopCoroutine(gameCoroutine);
+        shipAudio.enabled = false;
         Debug.Log("Game Over - Ending Run");
         moveScript.distToMove = 0.00f;
         OnRunEnd?.Invoke();
+        gameOverUIScript.SetGameOverText();
+        gameOverUIScript.gameObject.SetActive(true);
     }
 }
