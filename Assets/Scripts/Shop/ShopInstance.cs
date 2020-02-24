@@ -78,7 +78,7 @@ public class ShopInstance : MonoBehaviour
                 if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.LASER && componentController != null)
                 {
                     GameObject newComponentForSale = Instantiate(laserPrefab, componentController.myItemSlot.transform);
-                    componentController.RotateComponent(Definitions.DIRECTIONS.RIGHT);
+                    //componentController.RotateComponent(Definitions.DIRECTIONS.RIGHT);
                 }
                 else if (componentsToSet[i + j].Item2 == Definitions.SHIPCOMPONENTS.CARGO_TRACTOR && componentController != null)
                 {
@@ -97,7 +97,7 @@ public class ShopInstance : MonoBehaviour
         List<Tuple<int, Definitions.SHIPCOMPONENTS>> shopComponents = new List<Tuple<int, Definitions.SHIPCOMPONENTS>>();
         for (int i = 0; i < slotsToFill; i++)
         {
-            int randomPrice = (int)UnityEngine.Random.Range(500, 2000);
+            int randomPrice = (int)UnityEngine.Random.Range(350, 1400);
             Definitions.SHIPCOMPONENTS componentToAdd = UnityEngine.Random.value >= 0.8 ? Definitions.SHIPCOMPONENTS.CARGO_TRACTOR : Definitions.SHIPCOMPONENTS.LASER;
             shopComponents.Add(new Tuple<int, Definitions.SHIPCOMPONENTS>(randomPrice, componentToAdd));
         }
