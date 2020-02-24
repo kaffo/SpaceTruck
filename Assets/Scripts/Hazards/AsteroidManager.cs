@@ -38,7 +38,7 @@ public class AsteroidManager : MonoBehaviour
             }
         }
 
-        int numToSpawn = Random.Range(minAsteroids, maxAsteroids);
+        int numToSpawn = Random.Range(minAsteroids, maxAsteroids + 1);
 
         for (int i = 0; i < numToSpawn; i++)
         {

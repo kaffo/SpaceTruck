@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     public AudioSource shipAudio;
     public List<GameObject> gameObjectsToHide;
     public GameOverRunsCounter gameOverUIScript;
+    public List<AsteroidManager> asteroidManagers;
 
     [HideInInspector]
     public int runCount = 1;
@@ -40,7 +41,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         if (mainGameCamera == null || partsShip == null || moveScript == null || shipAudio == null ||
-            gameObjectsToHide == null || gameOverUIScript == null)
+            gameObjectsToHide == null || gameOverUIScript == null || asteroidManagers.Count != 4)
         {
             Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
@@ -181,6 +182,24 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private void IncreaseDifficulty()
+    {
+        float randomNumber = UnityEngine.Random.value;
+        if (randomNumber < 0.4)
+        {
+            asteroidManagers[0].maxAsteroids++;
+        } else if (randomNumber < 0.65)
+        {
+            asteroidManagers[1].maxAsteroids++;
+        }else if (randomNumber < 0.9)
+        {
+            asteroidManagers[2].maxAsteroids++;
+        } else
+        {
+            asteroidManagers[3].maxAsteroids++;
+        }
+    }
+
     public void StopRun()
     {
         Debug.Log("Ending Run");
@@ -189,6 +208,7 @@ public class GameManager : Singleton<GameManager>
         partsShip.SetActive(true);
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP)); // TODO move this
         StartCoroutine(DecreaseShipPitchSound());
+        IncreaseDifficulty();
         OnRunEnd?.Invoke();
     }
 
