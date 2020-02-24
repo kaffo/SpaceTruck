@@ -254,6 +254,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb87448b58f09a240912c74119171631, type: 3}
   - {fileID: 8300000, guid: 1ca485690be62b1478f0cf11bca4c2d9, type: 3}
   - {fileID: 8300000, guid: 80a64764d36ac0f4986b8b313fe47dbc, type: 3}
+  myBarrel: {fileID: 3570959774325482775}
 --- !u!54 &4317579402372126962
 Rigidbody:
   m_ObjectHideFlags: 0

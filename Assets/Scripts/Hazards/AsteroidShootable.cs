@@ -24,19 +24,22 @@ public class AsteroidShootable : MonoBehaviour, IShootable
         return (myHealth > 0);
     }
 
-    public void DoDamage(float damageAmount)
+    public bool DoDamage(float damageAmount)
     {
         myHealth -= damageAmount;
         if (myHealth <= 0)
         {
             myModel.SetActive(false);
-            myAsteroidMove.enabled = false;
+            myAsteroidMove.targetPosition = new Vector3(transform.position.x, 0f, -10f);
+            myAsteroidMove.speedToMove = 0.01f;
             GameObject explosionsPrefab = explosionsPrefabList[UnityEngine.Random.Range(0, explosionsPrefabList.Count)];
             GameObject explosionGameObject = Instantiate(explosionsPrefab, transform);
             explosionGameObject.transform.localPosition = Vector3.zero;
             explosionGameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             StartCoroutine(DestoryAsteroid(5f));
+            return true;
         }
+        return false;
     }
 
     private IEnumerator DestoryAsteroid(float timeout)

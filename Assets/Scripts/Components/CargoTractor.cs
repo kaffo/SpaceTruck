@@ -46,6 +46,8 @@ public class CargoTractor : MonoBehaviour
             cargoContainerTransform.rotation = Quaternion.identity;
 
             myCargoContainer = cargoContainerScript;
+            Collider cargoCollider = myCargoContainer.GetComponent<Collider>();
+            if (cargoCollider != null) { cargoCollider.enabled = false; }
 
             myCollider.enabled = false;
         }

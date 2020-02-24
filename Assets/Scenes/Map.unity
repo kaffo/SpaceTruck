@@ -2484,7 +2484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeOfRun: 20
-  totalRuns: 1
+  totalRuns: 5
   successfulRunReward: 500
   shipLowPitch: 0.5
   shipHighPitch: 1.5

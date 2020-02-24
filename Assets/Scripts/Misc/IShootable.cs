@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IShootable 
 {
     bool IsAlive();
-    void DoDamage(float damageAmount);
+    bool DoDamage(float damageAmount);
 }
