@@ -30,10 +30,21 @@ public class GameManager : Singleton<GameManager>
     public delegate void OnRunEndDelegate();
     public event OnRunEndDelegate OnRunEnd;
 
+    public delegate void OnThreatChangeDelegate(THREAT_LEVEL top, THREAT_LEVEL right, THREAT_LEVEL bottom, THREAT_LEVEL left);
+    public event OnThreatChangeDelegate OnThreatChange;
+
     private enum CAMERAPOSITION
     {
         DEFAULT,
         PARTSHIP
+    }
+
+    public enum THREAT_LEVEL
+    {
+        NONE,
+        LOW,
+        MEDIUM,
+        HIGH
     }
 
     private Coroutine gameCoroutine;
@@ -64,6 +75,10 @@ public class GameManager : Singleton<GameManager>
 
         // Move the camera, we'll fix this later
         StartCoroutine(LerpCameraToPosition(CAMERAPOSITION.PARTSHIP));
+        OnThreatChange?.Invoke(GetThreatLevel(asteroidManagers[0].maxAsteroids * 20),
+            GetThreatLevel(asteroidManagers[1].maxAsteroids * 20),
+            GetThreatLevel(asteroidManagers[3].maxAsteroids * 20),
+            GetThreatLevel(asteroidManagers[2].maxAsteroids * 20));
     }
 
     private IEnumerator LerpCameraToPosition(CAMERAPOSITION positionToSwitchTo)
@@ -155,6 +170,27 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    //0 - 100
+    private THREAT_LEVEL GetThreatLevel(int threatInt)
+    {
+        if (threatInt >= 50)
+        {
+            return THREAT_LEVEL.HIGH;
+        }
+        else if (threatInt >= 25)
+        {
+            return THREAT_LEVEL.MEDIUM;
+        }
+        else if (threatInt >= 0)
+        {
+            return THREAT_LEVEL.LOW;
+        }
+        else
+        {
+            return THREAT_LEVEL.NONE;
+        }
+    }
+
     public void StartRun()
     {
         Debug.Log("Starting Run");
@@ -198,6 +234,10 @@ public class GameManager : Singleton<GameManager>
         {
             asteroidManagers[3].maxAsteroids++;
         }
+        OnThreatChange?.Invoke(GetThreatLevel(asteroidManagers[0].maxAsteroids * 20),
+            GetThreatLevel(asteroidManagers[1].maxAsteroids * 20),
+            GetThreatLevel(asteroidManagers[3].maxAsteroids * 20),
+            GetThreatLevel(asteroidManagers[2].maxAsteroids * 20));
     }
 
     public void StopRun()
