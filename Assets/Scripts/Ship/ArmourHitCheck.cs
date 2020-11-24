@@ -8,6 +8,7 @@ public class ArmourHitCheck : MonoBehaviour
     public bool beenHit = false;
 
     public List<AudioClip> hitSoundList;
+    [SerializeField] private HealthIndicatorUI myHealthIndicatorScript;
 
     private AudioSource myAudioSource;
 
@@ -17,6 +18,13 @@ public class ArmourHitCheck : MonoBehaviour
         if (myAudioSource == null)
         {
             Debug.LogError($"Cannot find Audio Source for {gameObject.name}");
+            this.enabled = false;
+            return;
+        }
+
+        if (myHealthIndicatorScript == null)
+        {
+            Debug.LogError(this.name + " on " + this.gameObject + " has not been setup correctly!");
             this.enabled = false;
             return;
         }
@@ -50,6 +58,7 @@ public class ArmourHitCheck : MonoBehaviour
             {
                 Debug.Log($"Hit on {gameObject.name}!");
                 beenHit = true;
+                myHealthIndicatorScript.BeenHit = beenHit;
             } else
             {
                 GameManager.Instance.GameOver();
